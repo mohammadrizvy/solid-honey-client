@@ -33,7 +33,7 @@ const TopCategories = () => {
           <div className="card  w-[20%] h-50 bg-[#F9EEDD] ">
             <div className="card-body">
               <div className="card-title justify-center p-5">
-                <MdOilBarrel color="" size={60} color="#D19E47" />
+                <MdOilBarrel size={60} color="#D19E47" />
               </div>
               <p className="text-center text-3xl ">তেল</p>
             </div>

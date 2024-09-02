@@ -8,7 +8,7 @@ const Header = () => {
       <div className="">
         <div className="w-full flex justify-center">
           <img
-            src="../../../../public/headerImage.png"
+            src="/headerImage.png"
             alt="Header"
             className="w-full max-w-7xl h-auto object-cover"
           />
