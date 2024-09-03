@@ -7,7 +7,7 @@ const TopCategories = () => {
   return (
     <div>
       <div className="pt-6">
-        <h1 className="text-center text-4xl mb-8 font-semibold ">
+        <h1 className="text-center text-4xl mb-8  ">
           শীর্ষ বিক্রি
         </h1>
         <div className=" flex justify-center gap-10  ">

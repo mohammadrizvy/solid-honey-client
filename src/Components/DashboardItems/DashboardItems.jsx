@@ -44,7 +44,7 @@ import { CgUserAdd } from "react-icons/cg";
 import { PiHandCoinsFill } from "react-icons/pi";
 import { CiMemoPad, CiViewList } from "react-icons/ci";
 import { TiUserAdd } from "react-icons/ti";
-import { FaSms } from "react-icons/fa";
+import { FaHome, FaSms } from "react-icons/fa";
 import { AiOutlineTransaction } from "react-icons/ai";
 
 const DashboardItems = () => {
@@ -382,8 +382,14 @@ const DashboardItems = () => {
           </ul>
         </details>
       </li>
+
+      <li className="border-t border-base-300 mt-4 p-4">
+        <Link to="/">
+          <FaHome />
+          Home
+        </Link>
+      </li>
     </div>
-  );
-};
+  );};
 
 export default DashboardItems;
