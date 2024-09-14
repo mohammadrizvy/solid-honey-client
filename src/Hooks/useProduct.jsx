@@ -1,23 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import React from 'react';
 
 const useProduct = () => {
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        fetch("/mockdata.json") // Adjusted path to refer to the public directory
-            .then((res) => res.json())
-            .then((data) => {
-                setProducts(data);
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.error('Error fetching the JSON data:', error);
-                setLoading(false);
-            });
-    }, []);
-
-    return [products, loading];
+    const {data , refetch, isLoading, error} = useQuery({
+        queryKey : ["products"],
+        queryFn : async () => {
+            const res = await axios.get(
+              `${import.meta.env.VITE_BACKEND_URL}/all/product`
+            );
+            return res.data.sps
+        }
+    })
+    console.log(data)
+    return {data , refetch , isLoading, error }
 };
 
 export default useProduct;

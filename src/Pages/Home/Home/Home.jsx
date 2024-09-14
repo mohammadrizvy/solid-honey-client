@@ -11,7 +11,7 @@ const Home = () => {
   return (
     <div>
     <Header></Header>
-    <TopCategories></TopCategories>
+    {/* <TopCategories></TopCategories> */}
     <BestColltections></BestColltections>
     <ForYouProducts></ForYouProducts>
     <WholeSaleCustomers></WholeSaleCustomers>

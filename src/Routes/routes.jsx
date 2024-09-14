@@ -3,6 +3,10 @@ import Main from "../Layout/Main/Main";
 import Home from "../Pages/Home/Home/Home";
 import DashboardLayoutBasic from "../Layout/DashboardLayout/DashboardLayout";
 import dashboardRoutes from "./DashboardRoutes";
+import Carts from "../Pages/Carts/Carts";
+import SignUp from "../Pages/Authintication/SignUp/SignUp";
+import Login from "../Pages/Authintication/Login/Login";
+import CheckOut from "../Pages/CheckOut/CheckOut";
 
 export const router = createBrowserRouter([
   {
@@ -25,22 +29,31 @@ export const router = createBrowserRouter([
       //   path: "/buy/:id",
       //   element: <BuyPage></BuyPage>,
       // },
-      // {
-      //   path: "/carts",
-      //   element: <Carts></Carts>,
-      // },
+      {
+        path: "/carts",
+        element: <Carts></Carts>,
+      },
       // {
       //   path: "/product-details/:id",
       //   element: <ProductDetails></ProductDetails>,
       //   loader: ({ params }) =>
       //     fetch(`http://localhost:7000/${params.id}`),
       // },
-      // {
-      //   path: "/check-out",
-      //   element: <PrivateRoute>
-      //     <CheckOut/>
-      //   </PrivateRoute> ,
-      // },
+      {
+        path: "/check-out",
+        element: 
+        // <PrivateRoute>
+          <CheckOut/>
+        // </PrivateRoute> ,
+      },
+      {
+        path : "/signup",
+        element : <SignUp></SignUp>
+      },
+      {
+        path : "/login",
+        element : <Login></Login>
+      },
       // {
       //   path: "/discount",
       //   element: (

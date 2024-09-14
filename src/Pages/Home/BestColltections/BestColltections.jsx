@@ -2,23 +2,39 @@ import { StarIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { IoMdStar } from "react-icons/io";
+import useProduct from "../../../Hooks/useProduct";
+import toast, { Toaster } from "react-hot-toast";
 
 
 const BestColltections = () => {
 
-  const [bestProduct , setBestProduct] = useState([])
-
-  useEffect(() => {
-    fetch("/mockProductData.json")
-      .then((res) => res.json())
-      .then( data => setBestProduct(data))
-      ;
-  }, []);
+  const {data : bestProduct = [] , refetch , isLoading , error} = useProduct()
 
   console.log("Best Selling : " , bestProduct )
 
+  const handleAddToCart = (ProductId) => {
+    
+    toast.success("Added to the cart.", {
+      style: {
+        
+        padding: "16px",
+        color: "#713200",
+      },
+      iconTheme: {
+        primary: "#D19E47",
+        secondary: "#F9EEDD",
+      },
+    });
+
+    console.log(ProductId)
+
+  }
+
+  
+
   return (
     <div>
+      <Toaster/>
       <section className="py-14">
         <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
           <div className="max-w-5xl mx-auto text-left sm:text-center">
@@ -68,7 +84,7 @@ const BestColltections = () => {
                     </div>
                   </div>
                   <div className="card-actions justify-between ">
-                    <button className="btn btn-sm bg-[#D19E47] text-white w-[50%]">
+                    <button onClick={() => {handleAddToCart(items.id)}} className="btn btn-sm bg-[#D19E47] text-white w-[50%]">
                       Add to cart
                     </button>
                     <button className="btn bg-[#F9EEDD] btn-sm  border-none w-[40%]">
