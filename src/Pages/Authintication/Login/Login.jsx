@@ -1,8 +1,12 @@
 import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+
+  const navigate = useNavigate(); 
 
   const {register , handleSubmit} = useForm()
 
@@ -11,10 +15,17 @@ const Login = () => {
     console.log(data)
       try {
         const response = await axios.post(
-          `http://192.168.0.127:8000/shss/login`,
+          `${import.meta.env.VITE_BACKEND_URL}/login/`,
           data
         );
-        console.log("Success:", response.data); // Handle success, like redirecting or displaying a success message
+        console.log("Success:", response.data);
+
+  localStorage.setItem("Token", response.data.access_token);
+  localStorage.setItem("Name", response.data.name);
+  localStorage.setItem("Email", response.data.email);
+        
+        toast.success("Login successfully")
+
       } catch (error) {
         console.error(
           "Error:",
@@ -27,7 +38,7 @@ const Login = () => {
     <div className="">
       <section className="relative py-4 sm:py-16 lg:py-14">
         <div className="absolute inset-0 "></div>
-
+    <Toaster/>
         <div className="relative max-w-lg px-4 mx-auto sm:px-0">
           <div className="overflow-hidden bg-base-100  rounded-md shadow-xl">
             <div className="px-4 py-6 sm:px-8 sm:py-7">

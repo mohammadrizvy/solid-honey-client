@@ -5,15 +5,19 @@ import { IoIosArrowDown } from "react-icons/io";
 import { IoBagHandleOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import useCart from "../../../Hooks/useCart";
+import useCategory from "../../../Hooks/useCategory";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const admin = true;
-  const user = false; // Example user state, change it according to your actual logic
+  const user = false;
+  const posUser = true;
+  // Example user state, change it according to your actual logic
 
   const { data: cartData = [], refetch, isLoading } = useCart();
-   const cartItems = cartData.patcs || [];
-  console.log(cartItems)
+  const cartItems = cartData.patcs || [];
+
+  const { data: categories = [] } = useCategory();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -53,17 +57,41 @@ const Navbar = () => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               <li>
-                <Link to="/">আমাদের সম্পর্কে</Link>
+                <Link to="/about-us">আমাদের সম্পর্কে</Link>
               </li>
               <li tabIndex={0}>
                 <details>
-                  <summary>সকল পন্য</summary>
-                  <ul className="p-2">
-                    <li>
-                      <a>Option 1</a>
+                  <summary>
+                    <Link to={"/allProducts"}>সকল পন্য</Link>
+                  </summary>
+                  <ul className="min-w-max px-6 py-4 text-center space-y-2">
+                    {" "}
+                    {/* Ensures the container is wide enough */}
+                    <li className="py-1 whitespace-nowrap">
+                      {" "}
+                      {/* Ensures text doesn't wrap */}
+                      <a>সুন্দরবনের মধু</a>
                     </li>
-                    <li>
-                      <a>Option 2</a>
+                    <li className="py-1 whitespace-nowrap">
+                      <a>সরিষা ফুলের মধু</a>
+                    </li>
+                    <li className="py-1 whitespace-nowrap">
+                      <a>কালোজিরা ফুলের মধু</a>
+                    </li>
+                    <li className="py-1 whitespace-nowrap">
+                      <a>লিচু ফুলের মধু</a>
+                    </li>
+                    <li className="py-1 whitespace-nowrap">
+                      <a>১০০ গ্রাম মধু কাঁচের বোতল</a>
+                    </li>
+                    <li className="py-1 whitespace-nowrap">
+                      <a>কালোজিরার তেল</a>
+                    </li>
+                    <li className="py-1 whitespace-nowrap">
+                      <a>সরিষার তেল</a>
+                    </li>
+                    <li className="py-1 whitespace-nowrap">
+                      <a>কালোজিরা</a>
                     </li>
                   </ul>
                 </details>
@@ -82,6 +110,11 @@ const Navbar = () => {
                   <Link to="/dashboard">ড্যাশবোর্ড</Link>
                 </li>
               )}
+              {posUser && (
+                <li>
+                  <Link to="/pos">POS</Link>
+                </li>
+              )}
             </ul>
           )}
         </div>
@@ -92,26 +125,31 @@ const Navbar = () => {
             src="/Solid-Honey-Logo-for-daraz-100x100.png"
             alt="myLogo"
           />
-          <span className="text-xl font-semibold">Solid Honey-সলিড মধু</span>
+          <span className="text-xl font-semibold">Solid Honey-মধু</span>
         </Link>
       </div>
 
       {/* Center Section for Desktop Menu */}
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
+        <ul className="menu menu-horizontal px-10">
           <li>
-            <Link to="/">আমাদের সম্পর্কে</Link>
+            <Link to="/about-us">আমাদের সম্পর্কে</Link>
           </li>
           <li tabIndex={0}>
             <details>
-              <summary>সকল পন্য</summary>
-              <ul className="p-2">
-                <li>
-                  <a>Option 1</a>
-                </li>
-                <li>
-                  <a>Option 2</a>
-                </li>
+              <summary>
+                <Link to={"/allProducts"}>সকল পন্য</Link>
+              </summary>
+              <ul className="min-w-max  text-center space-y-2">
+                {/* Ensures the container is wide enough */}
+                {categories.map((category, index) => (
+                  <li key={index} className="p whitespace-nowrap">
+                    {/* Ensures text doesn't wrap */}
+                    <Link to={"/allProducts"}>
+                      <a>{category.name}</a>
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </details>
           </li>
@@ -126,7 +164,12 @@ const Navbar = () => {
           </li>
           {admin && (
             <li>
-              <Link to="/dashboard">ড্যাশবোর্ড</Link>
+              <Link to="/admin-dashboard">ড্যাশবোর্ড</Link>
+            </li>
+          )}
+          {posUser && (
+            <li>
+              <Link to="/dashboard">POS</Link>
             </li>
           )}
         </ul>
@@ -137,10 +180,10 @@ const Navbar = () => {
         <Link to="/carts" className="btn btn-ghost">
           <p></p>
           <div className="flex">
-            <IoBagHandleOutline size={24} />
+            <IoBagHandleOutline color="#D19E47" size={26} />
             {/* Only show the badge if data exists and its length is greater than 0 */}
             {cartItems && cartItems.length > 0 && (
-              <div className="bg-[]">{cartItems.length}</div>
+              <div className="text-[#D19E47]">{cartItems.length}</div>
             )}
           </div>
         </Link>

@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Outlet } from "react-router-dom";
-import DashboardNavbar from "../../Dashboard/DashboardNavbar/DashboardNavbar";
-import DashboardItems from "../../Components/DashboardItems/DashboardItems";
+import React, { useEffect, useState } from "react";
+import { Outlet, Link } from "react-router-dom";
 
-const DashboardLayout = () => {
+const AdminDashbardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
@@ -34,7 +32,6 @@ const DashboardLayout = () => {
 
       {/* Main content area */}
       <div className="drawer-content flex flex-col min-h-screen bg-white">
-        <DashboardNavbar />
         <div className="p-4 lg:p-6 flex-grow">
           <Outlet />
         </div>
@@ -43,17 +40,47 @@ const DashboardLayout = () => {
       {/* Sidebar / Drawer */}
       <div className="drawer-side">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-        <div className="menu bg-base-200 text-base-content w-64 lg:w-72 p-4 pb-52 ">
+        <div className="menu bg-base-200 text-base-content w-64 h-full lg:w-72 p-4 pb-52">
           <img
             className="w-24 lg:w-[100px] mb-4 mx-auto"
             src="https://i.ibb.co/jhD85Kp/logo2024-07-06-21-35-31-66896443c7133-1-removebg-preview.png"
             alt="Logo"
           />
-          <DashboardItems />
+
+          {/* Admin Menu */}
+          <ul className="menu-list  bangla-regular text-base">
+            <li>
+              <Link to="/admin-dashboard">Dashboard</Link>
+            </li>
+            <li>
+              <Link to="/admin-dashboard/add-category">Add Category</Link>
+            </li>
+            <li>
+              <Link to="/admin-dashboard/add-products">Add Product</Link>
+            </li>
+            <li>
+              <Link to="/admin-dashboard/manage-products">Manage Products</Link>
+            </li>
+            <li>
+              <Link to="/admin-dashboard/users">Manage Users</Link>
+            </li>
+            <li>
+              <Link to="/admin-dashboard/orders">Manage Orders</Link>
+            </li>
+            {/* <li>
+              <Link to="/admin-dashboard/reports">Reports & Statistics</Link>
+            </li> */}
+            <li>
+              <Link to="/admin-dashboard/settings">Settings</Link>
+            </li>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
   );
 };
 
-export default DashboardLayout;
+export default AdminDashbardLayout;

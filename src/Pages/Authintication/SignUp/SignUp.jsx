@@ -10,7 +10,7 @@ const SignUp = () => {
     console.log(data)
     try {
       const response = await axios.post(
-        `http://192.168.0.127:8000/shss/singup`,
+        `${import.meta.env.VITE_BACKEND_URL}/singup`,
         data
       );
       console.log("Success:", response.data); // Handle success, like redirecting or displaying a success message
@@ -40,7 +40,6 @@ const SignUp = () => {
                 <div className="space-y-5">
                   <div>
                     <label
-                      htmlFor="name"
                       className="text-base font-medium text-gray-900"
                     >
                       First & Last name
@@ -57,7 +56,6 @@ const SignUp = () => {
 
                   <div>
                     <label
-                      htmlFor="email"
                       className="text-base font-medium text-gray-900"
                     >
                       Email address
@@ -74,7 +72,6 @@ const SignUp = () => {
 
                   <div>
                     <label
-                      htmlFor="password"
                       className="text-base font-medium text-gray-900"
                     >
                       Password

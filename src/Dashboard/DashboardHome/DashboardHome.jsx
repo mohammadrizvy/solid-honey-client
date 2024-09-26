@@ -8,7 +8,7 @@ const DashboardHome = () => {
   return (
     <div className="p-4">
       {/* Overview Section */}
-      <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-4">
+      <div className="grid lg:grid-cols-4  md:grid-cols-2 sm:grid-cols-1 gap-4">
         <div className="card bg-primary shadow-lg">
           <div className="card-body">
             <h2 className="card-title  ">

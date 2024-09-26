@@ -4,16 +4,17 @@ import { IoMdStar } from "react-icons/io";
 import useProduct from "../../../Hooks/useProduct";
 import axios from "axios";
 import toast from "react-hot-toast";
+import ProductCard from "../../../Components/PoductCard/ProductCard";
 
 const ForYouProducts = () => {
   const { data: product = [], refetch, isLoading, error } = useProduct();
 
-  const handleAddToCart = async (product) => {
-    console.log(product)
+  const handleAddToCart = async (productId) => {
+    console.log("addded to the cart product : ",productId)
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/add/to/cart/entry/`,
-        { product } // Send productId in an object
+        `${import.meta.env.VITE_BACKEND_URL}/cart/entry/`,
+        { productId } // Send productId in an object
       );
       console.log("Success:", response.data);
       toast.success("Added to the cart.", {
@@ -26,6 +27,7 @@ const ForYouProducts = () => {
           secondary: "#F9EEDD",
         },
       });
+      refetch(); 
     } catch (error) {
       console.error(
         "Error:",
@@ -50,51 +52,12 @@ const ForYouProducts = () => {
 
           <div className="grid grid-cols-1 gap-6 m sm:mt-12 xl:mt-20 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8 xl:gap-14 ">
             {product.map((items) => (
-              <div key={items.id} className="card-compact w-80 ">
-                <figure className="h- overflow-hidden">
-                  <img
-                    className="transform hover:scale-105 transition duration-300"
-                    src={items.image}
-                    alt={items.title}
-                  />
-                </figure>
-                <div className="card-body flex flex-col justify-between">
-                  <h2 className="card-title -mt-2">{items.title}</h2>
-                  <p className="text-small -mt-2 ">{items.category}</p>
-                  <div className="flex -mt-1">
-                    <p className="text-small flex gap-2 font-semibold">
-                      <FaBangladeshiTakaSign />
-                      {items.price} BDT
-                    </p>
-                    <div className="flex items-center">
-                      <p className="flex">
-                        {Array(4)
-                          .fill()
-                          .map((_, i) => (
-                            <IoMdStar
-                              key={i}
-                              color="black"
-                              className="size-4 text-black"
-                            />
-                          ))}
-                      </p>
-                      <p className="text-sm">({items.rating})</p>
-                    </div>
-                  </div>
-                  <div className="card-actions justify-between ">
-                    <button
-                      onClick={() => handleAddToCart(items)}
-                      className="btn btn-sm bg-[#D19E47] text-white w-[50%]"
-                    >
-                      Add to cart
-                    </button>
-                    <button className="btn bg-[#F9EEDD] btn-sm border-none w-[40%]">
-                      Buy Now
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
+              <ProductCard
+              key={items.id}
+              product={items}
+              handleAddToCart={handleAddToCart}
+              />
+            ) )}
           </div>
           <div className="flex justify-center mt-5">
             <button className="btn bg-[#D19E47] underline text-white px-6 py-2">

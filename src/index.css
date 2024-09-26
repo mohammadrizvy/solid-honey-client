@@ -2,3 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+.button-primary{
+    @apply btn text-white border-none bg-[#D19E47]
+}
+
+.button-secondary{
+    @apply btn text-white border-none bg-[#F9EEDD]
+}
+
+.bg-honey{
+    @apply bg-[#D19E47] text-white
+}

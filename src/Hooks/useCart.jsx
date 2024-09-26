@@ -7,7 +7,7 @@ const useCart = () => {
     queryKey: ["carts"],
     queryFn: async () => {
       const res = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/add/to/cart/list/`
+        `${import.meta.env.VITE_BACKEND_URL}/cart/list/`
       );
       return res.data;
     },

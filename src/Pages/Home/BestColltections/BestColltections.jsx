@@ -1,44 +1,48 @@
-import { StarIcon } from "lucide-react";
-import React, { useEffect, useState } from "react";
-import { FaBangladeshiTakaSign } from "react-icons/fa6";
-import { IoMdStar } from "react-icons/io";
-import useProduct from "../../../Hooks/useProduct";
+import React from "react";
+import { Link } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import ProductCard from "../../../Components/PoductCard/ProductCard";
+import CardSkeleton from "../../../Components/CardSkeleton/CardSkeleton"; // Import your CardSkeleton component
+import useProduct from "../../../Hooks/useProduct";
+import axios from "axios";
 
+const BestCollections = () => {
+  const { data: bestProduct = [], refetch, isLoading, error } = useProduct();
 
-const BestColltections = () => {
-
-  const {data : bestProduct = [] , refetch , isLoading , error} = useProduct()
-
-  console.log("Best Selling : " , bestProduct )
-
-  const handleAddToCart = (ProductId) => {
-    
-    toast.success("Added to the cart.", {
-      style: {
-        
-        padding: "16px",
-        color: "#713200",
-      },
-      iconTheme: {
-        primary: "#D19E47",
-        secondary: "#F9EEDD",
-      },
-    });
-
-    console.log(ProductId)
-
-  }
-
-  
+ const handleAddToCart = async (productId) => {
+   console.log("addded to the cart product : ", productId);
+   try {
+     const response = await axios.post(
+       `${import.meta.env.VITE_BACKEND_URL}/cart/entry/`,
+       { productId } // Send productId in an object
+     );
+     console.log("Success:", response.data);
+     toast.success("Added to the cart.", {
+       style: {
+         padding: "16px",
+         color: "#713200",
+       },
+       iconTheme: {
+         primary: "#D19E47",
+         secondary: "#F9EEDD",
+       },
+     });
+     refetch();
+   } catch (error) {
+     console.error(
+       "Error:",
+       error.response ? error.response.data : error.message
+     );
+   }
+ };
 
   return (
     <div>
-      <Toaster/>
+      <Toaster />
       <section className="py-14">
         <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
           <div className="max-w-5xl mx-auto text-left sm:text-center">
-            <h2 className="text-3xl  leading-tight  sm:text-4xl lg:text-5xl lg:leading-tight">
+            <h2 className="text-3xl leading-tight sm:text-4xl lg:text-5xl lg:leading-tight">
               আমাদের জনপ্রিয় সংগ্রহ আইটেম
             </h2>
             <p className="mt-4 text-sm">
@@ -54,51 +58,25 @@ const BestColltections = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 m sm:mt-12 xl:mt-20 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8 xl:gap-14 ">
-            {bestProduct.map((items) => (
-              <div key={items.id} className=" card-compact w-80 ">
-                <figure className="h- overflow-hidden">
-                  <img
-                    className="transform hover:scale-105 transition duration-300"
-                    src={items.image}
-                    alt=""
-                  />
-                </figure>
-                <div className="card-body flex flex-col justify-between">
-                  <h2 className="card-title -mt-2">{items.title}</h2>
-                  <p className="text-small -mt-2 ">{items.category}</p>
-                  <div className="flex -mt-1">
-                    <p className="text-small flex gap-2 font-semibold">
-                      {" "}
-                      <FaBangladeshiTakaSign />
-                      {items.price} BDT
-                    </p>
-                    <div className="flex items-center">
-                      <p className="flex">
-                        <IoMdStar color="black" className="size-4 text-black" />
-                        <IoMdStar color="black" className="size-4 text-black" />
-                        <IoMdStar color="black" className="size-4 text-black" />
-                        <IoMdStar color="black" className="size-4 text-black" />
-                      </p>
-                      <p className="text-sm">({items.rating})</p>
-                    </div>
-                  </div>
-                  <div className="card-actions justify-between ">
-                    <button onClick={() => {handleAddToCart(items.id)}} className="btn btn-sm bg-[#D19E47] text-white w-[50%]">
-                      Add to cart
-                    </button>
-                    <button className="btn bg-[#F9EEDD] btn-sm  border-none w-[40%]">
-                      Buy Now
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
+          <div className="grid grid-cols-1 gap-6 sm:mt-12 xl:mt-20 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8 xl:gap-14">
+            {isLoading
+              ? Array(6)
+                  .fill(0)
+                  .map((_, index) => <CardSkeleton key={index} />)
+              : bestProduct.map((product) => (
+                  
+                    <ProductCard
+                      product={product}
+                      handleAddToCart={handleAddToCart}
+                    />
+                ))}
           </div>
           <div className="flex justify-center mt-5">
+            <Link to={"allproducts"}>
             <button className="btn bg-[#D19E47] underline text-white px-6 py-2">
               See more
             </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -106,4 +84,4 @@ const BestColltections = () => {
   );
 };
 
-export default BestColltections;
+export default BestCollections;

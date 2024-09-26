@@ -5,7 +5,7 @@ const WholeSaleCustomers = () => {
   return (
     <div className="mx-auto text-center py-10">
       <h1 className="text-4xl pb-10">বিক্রয় মাধ্যমগুলো</h1>
-      <Marquee speed={30} pauseOnHover >
+      <Marquee speed={50}  >
         <div className="flex items-center space-x-4">
           <img
             className="w-36 h-36 object-contain"

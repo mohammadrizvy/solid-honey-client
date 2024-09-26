@@ -7,6 +7,10 @@ import Carts from "../Pages/Carts/Carts";
 import SignUp from "../Pages/Authintication/SignUp/SignUp";
 import Login from "../Pages/Authintication/Login/Login";
 import CheckOut from "../Pages/CheckOut/CheckOut";
+import ProductDetails from "../Pages/ProductDetails/ProductDetails";
+import AllProducts from "../Pages/AllProducts/AllProducts";
+import adminDashboard from "./adminDashboard";
+import AboutUs from "../Pages/AboutUs/AboutUs";
 
 export const router = createBrowserRouter([
   {
@@ -17,14 +21,24 @@ export const router = createBrowserRouter([
         path: "/",
         element: <Home></Home>,
       },
-      // {
-      //   path: "/mensCollection",
-      //   element: <MensCollection></MensCollection>,
-      // },
-      // {
-      //   path: "/womensCollection",
-      //   element: <WomensCollection></WomensCollection>,
-      // },
+      {
+        path: "/all",
+        element: <Home></Home>,
+      },
+      {
+        path: "/product-details/:id",
+        element: <ProductDetails />,
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_BACKEND_URL}/all/product/${params.id}`),
+      },
+      {
+        path: "/allProducts",
+        element: <AllProducts></AllProducts>,
+      },
+      {
+        path: "/about-us",
+        element: <AboutUs></AboutUs>,
+      },
       // {
       //   path: "/buy/:id",
       //   element: <BuyPage></BuyPage>,
@@ -41,18 +55,19 @@ export const router = createBrowserRouter([
       // },
       {
         path: "/check-out",
-        element: 
-        // <PrivateRoute>
-          <CheckOut/>
+        element: (
+          // <PrivateRoute>
+          <CheckOut />
+        ),
         // </PrivateRoute> ,
       },
       {
-        path : "/signup",
-        element : <SignUp></SignUp>
+        path: "/signup",
+        element: <SignUp></SignUp>,
       },
       {
-        path : "/login",
-        element : <Login></Login>
+        path: "/login",
+        element: <Login></Login>,
       },
       // {
       //   path: "/discount",
@@ -82,5 +97,6 @@ export const router = createBrowserRouter([
       // },
     ],
   },
-  dashboardRoutes
+  dashboardRoutes,
+  adminDashboard,
 ]);
